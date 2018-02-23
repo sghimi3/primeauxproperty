@@ -1,1 +1,26 @@
 <!DOCTYPE html>
+<html>
+	<head>
+  		<title>Primeaux Property</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	</head>
+	<body>
+    	<div id="map"></div>
+
+    	<div class="block">
+    		<h1> Hello World </h1>
+    	</div>
+
+    <script>
+      function initMap() {
+        var uluru = {lat: 30.4583, lng: -91.1403};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: uluru
+        });
+      }
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLWqnG7Bjy8HGLDXL92w32fF9Dka-qb_0&callback=initMap"></script>
+  </body>
+</html>
