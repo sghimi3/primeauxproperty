@@ -116,6 +116,32 @@ var markerCluster = new MarkerClusterer(map, markers,
 var markerCluster2 = new MarkerClusterer(map, markers2,
     {imagePath: './markerimages/m'});
 
+
+function GeocodeConvert(geocoder, address){
+    console.log('.');
+    var address = address;
+    geocoder.geocode({'address': address}, function(result, status){
+        console.log(status);
+        if(status == 'Ok'){
+            console.log('.');
+            return result[0].geometry.location;
+        }
+    });
+}
+function codeAddress(Address, geocoder, map) {
+    var address = Address;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+
   google.maps.event.addListener(map, 'click', function( event ){
     lat = event.latLng.lat();
     lng = event.latLng.lng();
