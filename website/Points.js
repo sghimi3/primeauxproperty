@@ -4,10 +4,11 @@ function initMap() {
       center: {lat: -34.397, lng: 150.644}
     });
     var geocoder = new google.maps.Geocoder();
-    GeocodeSet(geocoder, map);
+    GeocodeSet(geocoder, map, "3126 Caroljack Dr");
+    alert(typeof 5);
 }
-function GeocodeSet(geocoder, resultsMap) {
-    var address = "3126 Caroljack Dr.";
+function GeocodeSet(geocoder, resultsMap, address) {
+    var address = address;
     geocoder.geocode({'address': address}, function(results, status) {
       if (status === 'OK') {
         resultsMap.setCenter(results[0].geometry.location);
@@ -19,7 +20,12 @@ function GeocodeSet(geocoder, resultsMap) {
         alert('Geocode was not successful for the following reason: ' + status);
       }
     });
-function GeocodeConvert(geocoder, address)
-{
-
+}
+function GeocodeConvert(geocoder, address){
+    var address = address;
+    geocoder.geocode({'address': address}, function(result, staus){
+        if(status === 'Ok'){
+            return result[0].geometry.location;
+        }
+    });
 }
