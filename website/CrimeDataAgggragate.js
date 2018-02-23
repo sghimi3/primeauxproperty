@@ -1,0 +1,1 @@
+var ValidZip = "70816", ValidYear = 2012, TakeAttempted = false, JSONquery = prompt(), CrimeArray = JSON.parse(JSONquery), ValidArry = [];function IsValid(x){if((x.zip == ValidZip) && (Number.parseInt(x.offense_date.substring(0,4))>= ValidYear) && (x.a_c == "COMMITTED" || TakeAttempted)){ValidArry.push(x);}}CrimeArray.forEach(function(x){IsValid(x)});console.log(ValidArry);
