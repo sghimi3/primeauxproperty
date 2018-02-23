@@ -1,8 +1,8 @@
 function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
-  zoom: 12,
-  center: {lat: 30.4583, lng: -91.1403}
-});
+    zoom: 12,
+    center: {lat: 30.4583, lng: -91.1403}
+  });
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('input');
@@ -61,5 +61,16 @@ function initAutocomplete() {
               }
             });
             map.fitBounds(bounds);
-          });
-        }
+        });
+
+}
+
+    google.maps.event.addListener(marker, 'click', function(event) {
+      //if is school
+        schoolPos = event.marker.getPosition();
+        alert("i have position");
+    })
+
+    google.maps.event.addListener(map, 'click', function( event ){
+      alert( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng() ); 
+    });
