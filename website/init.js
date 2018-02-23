@@ -1,4 +1,6 @@
 var markers  = [];
+var lat;
+var long;
 
 function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -65,6 +67,11 @@ function initAutocomplete() {
     });
 
   google.maps.event.addListener(map, 'click', function( event ){
-    alert( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng() ); 
+    lat = event.latLng.lat();
+    lng = event.latLng.lng();
+    alert( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng()); 
+
+    document.getElementById("details").innerHTML("HI");
   });
 }
+
