@@ -71,6 +71,8 @@
 
         // Create an array of alphabetical characters used to label the markers.
         var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var crimeimage = 'markerimages/crimeimage.png';
+        var schoolimage = 'markerimages/schoolimage.png';
 
         // Add some markers to the map.
         // Note: The code uses the JavaScript Array.prototype.map() method to
@@ -80,6 +82,7 @@
           return new google.maps.Marker({
             position: location,
             label: labels[i % labels.length],
+            icon: crimeimage,
             data: 'crime'
           });
         });
@@ -89,6 +92,7 @@
           return new google.maps.Marker({
             position: location,
             label: labels[i % labels.length],
+            icon: schoolimage,
             data: 'school'
           });
         });
