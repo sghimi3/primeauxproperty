@@ -8,7 +8,7 @@ https://data.brla.gov/resource/4gku-4cqw.json?open_closed=O
 
 
 //Get all open schools
-$.ajax({
+/*$.ajax({
     url: "https://data.brla.gov/resource/4gku-4cqw.json?open_closed=O&recno=???",
     type: "GET",
     data: {
@@ -42,4 +42,15 @@ document.getElementById("school").innerHTML = "Name: " + objSchool.name +
                                               "<br>Type: " + objSchool.public_private +
                                               "<br>Phone Number: " + objSchool.phone_number +
                                               "<br>Website: " + objSchool.website +
-                                              "<br>Address: " + objSchool.geolocation;
+                                              "<br>Address: " + objSchool.geolocation;*/
+
+
+google.maps.event.addListener(marker, 'click', function(event) {
+    //if is school
+    schoolPos = event.marker.getPosition();
+    alert("i have position");
+})
+
+google.maps.event.addListener(map, 'click', function( event ){
+  alert( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng() ); 
+});

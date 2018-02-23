@@ -1,3 +1,5 @@
+var markers  = [];
+
 function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
   zoom: 12,
@@ -14,7 +16,6 @@ function initAutocomplete() {
       searchBox.setBounds(map.getBounds());
   });
 
-  var markers = [];
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
     searchBox.addListener('places_changed', function() {
@@ -36,8 +37,8 @@ function initAutocomplete() {
           if (!place.geometry) {
             console.log("Returned place contains no geometry");
             return;
-           }
-           var icon = {
+          }
+          var icon = {
             url: place.icon,
             size: new google.maps.Size(71, 71),
             origin: new google.maps.Point(0, 0),
@@ -47,19 +48,23 @@ function initAutocomplete() {
 
           // Create a marker for each place.
           markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-            }));
+            map: map,
+            icon: icon,
+            title: place.name,
+            position: place.geometry.location
+          }));
 
-              if (place.geometry.viewport) {
-                // Only geocodes have viewport.
-                bounds.union(place.geometry.viewport);
-              } else {
-                bounds.extend(place.geometry.location);
-              }
-            });
-            map.fitBounds(bounds);
-          });
-        }
+          if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
+        });
+      map.fitBounds(bounds);
+    });
+
+  google.maps.event.addListener(map, 'click', function( event ){
+    alert( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng() ); 
+  });
+}
