@@ -22,123 +22,57 @@
     <div id="map"></div>
     <script>
 	var x = new XMLHttpRequest();
-	var name,xmlDoc,parser,a,b,test;
-	x.open("GET", "getData.php", true);
+	var names,lats,longs,xmlDoc,parser,a,b,test;
+	x.open("GET", "xml.php", true);
 	x.onreadystatechange = function () {
 		if (x.readyState == 4 && x.status == 200) {
-	        	var doc = x.response;
-			parser = new DOMParser();
-			xmlDoc = parser.parseFromString(doc, "text/xml");
-			e = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-			a = Number(xmlDoc.getElementsByTagName("latitude")[0].childNodes[0].nodeValue);
-			b = Number(xmlDoc.getElementsByTagName("longitude")[0].childNodes[0].nodeValue);
-			addMarker();
-
+	        	var doc = x.responseXML;
+			names=(doc.getElementsByTagName("name"));
+			lats=(doc.getElementsByTagName("latitude"));
+			longs=(doc.getElementsByTagName("longitude"));
+			var neighborhoods = [];
+			for(i=0;i<names.length;i++) {
+				neighborhoods.push([names[i].textContent,lats[i].textContent,longs[i].textContent]);
+			}
+			addMarkers(neighborhoods);
 	  }
 	};
 	x.send(null);
     </script>
-    <script>
+    <script defer>
       function initMap(a,b,c) {
 	var myLatLng = {lat: Number(b), lng: Number(c)};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
           center: {lat: 30.4583, lng: -91.1403}
-
         });
-
         var marker = new google.maps.Marker({
 	  position: myLatLng,
           map: map,
           title: String(a)
         });
       }
-function addMarker() {
-	var locations = [
-		['Gardere',30.463857,-91.078001],
-		['Merrydale',30.358142,-91.135268],
-		['Oak Hills Place',30.499867,-91.107654],
-		['Village Saint George',30.369693,-91.087765],
-		['Old Jefferson',30.361792,-91.066302],
-		['Brownfields',30.374028,-91.010425],
-		['Tara',30.543988,-91.125738],
-		['Scotlandville',30.441806,-91.096342],
-		['Pollard',30.526864,-91.163697],
-		['Millerville',30.399233,-91.123527],
-		['Zion City',30.45239,-91.002862],
-		['Kleinpeter',30.513881,-91.117574],
-		['Jones Creek',30.364441,-91.033714],
-		['Istrouma',30.41472,-91.047158],
-		['Inniswold',30.479116,-91.162887],
-		['Goodwood',30.393505,-91.073571],
-		['Smiley Heights',30.4423,-91.126173],
-		['Eden Park',30.461062,-91.121154],
-		['Delmont Place',30.460584,-91.147272],
-		['College Town',30.493433,-91.155139],
-		['Brownsfield',30.399837,-91.164608],
-		['Shenandoah',30.541658,-91.11816],
-		['Brookstown',30.403088,-90.993548],
-		['Broadmoor',30.498505,-91.13724],
-		['Sherwood Forest',30.444109,-91.080589],
-		['Forest Heights',30.448488,-91.052988],
-		['Nicholson',30.507316,-91.083715],
-		['Fairwood',30.336474,-91.080306],
-		['Jefferson',30.440895,-91.040876],
-		['Kenilworth',30.367657,-90.972005],
-		['Valley Park',30.382084,-91.124889],
-		['Baker',30.424905,-91.144],
-		['City Park',30.562163,-91.173465],
-		['Southside',30.431848,-91.159814],
-		['Mid City',30.417147,-91.156175],
-		['Mayfair',30.441905,-91.151406],
-		['Westminster',30.378951,-91.107942],
-		['South Campus',30.404099,-91.093939],
-		['Highland-Perkins',30.369941,-91.205788],
-		['Woodstone',30.36798,-91.079832],
-		['Woodchase',30.389674,-91.140661],
-		['LSU',30.408414,-91.142587],
-		['Old South Baton Rouge',30.412863,-91.179362],
-		['Bocage',30.43263,-91.182206],
-		['Drusilla',30.425257,-90.991308],
-		['Stevendale',30.418836,-91.085024],
-		['North Sherwood Forest',30.462355,-91.012507],
-		['Cortana',30.465548,-91.052583],
-		['Goodwood Homesites',30.46255,-91.088394],
-		['Downtown East',30.461432,-91.109191],
-		['Downtown',30.449375,-91.173323],
-		['Fairfields',30.460138,-91.180084],
-		['East Fairfields',30.461658,-91.161527],
-		['North Baton Rouge',30.460868,-91.133739],
-		['Southern University',30.476841,-91.133378],
-		['Legion Village',30.516352,-91.193176],
-		['Victoria Farms',30.504162,-91.160996],
-		['Park Forest-Oakcrest',30.489707,-91.109185],
-		['Monticello',30.482481,-91.085413],
-		['South Burbank',30.489175,-91.046224],
-		];
+	function addMarkers(locations) {
+        	var map = new google.maps.Map(document.getElementById('map'), {
+		        zoom: 12,
+	        	center: {lat: 30.4583, lng: -91.1403}
+	        });
+		var infowindow = new google.maps.InfoWindow();
+		var marker, i;
+		for (i = 0; i < locations.length; i++) {  
+			marker = new google.maps.Marker({
+        		position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        		map: map
+	      		});
 
-		var map = new google.maps.Map(document.getElementById('map'), {
-			  zoom: 12,
-			    center: {lat: 30.4583, lng: -91.1403}
-		});
-
-		    var infowindow = new google.maps.InfoWindow();
-		    var marker, i;
-
-	     for (i = 0; i < locations.length; i++) {  
-	       marker = new google.maps.Marker({
-	         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-	         map: map
-	       });
-
-	       google.maps.event.addListener(marker, 'click', (function(marker, i) {
-	         return function() {
-	           infowindow.setContent(locations[i][0]);
-	           infowindow.open(map, marker);
-	         }
-	       })(marker, i));
-	     }
-	 }
+	      		google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        			return function() {
+	        			infowindow.setContent(locations[i][0]);
+		          		infowindow.open(map, marker);
+        			}
+      			})(marker, i));
+    		}	
+	}
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLWqnG7Bjy8HGLDXL92w32fF9Dka-qb_0&callback=initMap">
