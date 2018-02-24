@@ -21,41 +21,114 @@
   <body>
     <div id="map"></div>
     <script>
-      var x = new XMLHttpRequest();
-      x.open("GET", "localhost", false);
-      x.onreadystatechange = function () {
-        console.log('test');
-        if (x.readyState == 4 && x.status == 200) {
-          var doc = x.responseXML;
-          var title = doc.getElementsByTagName("name")[0].textContent;
-          console.log(title);
-        }
-      };
-      x.send(null);
-    </script>
-    <!-- <script>
-    Didn't work either
-    var x = new XMLHttpRequest();
-    x.open("GET", "GetRegionChild ren.htm.xml", true);
-    var doc = x.responseXML;
-    var title = doc.getElementsByTagName("name")[0].textContent;
-    console.log(title);
-    </script> -->
-    <script>
-      function initMap() {
-        var myLatLng = {lat: 30.358142, lng: -91.135268};
+	var x = new XMLHttpRequest();
+	var name,xmlDoc,parser,a,b,test;
+	x.open("GET", "getData.php", true);
+	x.onreadystatechange = function () {
+		if (x.readyState == 4 && x.status == 200) {
+	        	var doc = x.response;
+			console.log(x.response);
+			parser = new DOMParser();
+			xmlDoc = parser.parseFromString(doc, "text/xml");
+			e = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+			a = Number(xmlDoc.getElementsByTagName("latitude")[0].childNodes[0].nodeValue);
+			b = Number(xmlDoc.getElementsByTagName("longitude")[0].childNodes[0].nodeValue);
+			console.log(name);
+			console.log(a);
+			console.log(b);
+			initMap('Gardere',30.463857,-91.078001);
+			addMarker('Merrydale',30.358142,-91.135268);
+			addMarker('Oak Hills Place',30.499867,-91.107654);
+			addMarker('Village Saint George',30.369693,-91.087765);
+			addMarker('Old Jefferson',30.361792,-91.066302);
+			addMarker('Brownfields',30.374028,-91.010425);
+			addMarker('Tara',30.543988,-91.125738);
+			addMarker('Scotlandville',30.441806,-91.096342);
+			addMarker('Pollard',30.526864,-91.163697);
+			addMarker('Millerville',30.399233,-91.123527);
+			addMarker('Zion City',30.45239,-91.002862);
+			addMarker('Kleinpeter',30.513881,-91.117574);
+			addMarker('Jones Creek',30.364441,-91.033714);
+			addMarker('Istrouma',30.41472,-91.047158);
+			addMarker('Inniswold',30.479116,-91.162887);
+			addMarker('Goodwood',30.393505,-91.073571);
+			addMarker('Smiley Heights',30.4423,-91.126173);
+			addMarker('Eden Park',30.461062,-91.121154);
+			addMarker('Delmont Place',30.460584,-91.147272);
+			addMarker('College Town',30.493433,-91.155139);
+			addMarker('Brownsfield',30.399837,-91.164608);
+			addMarker('Shenandoah',30.541658,-91.11816);
+			addMarker('Brookstown',30.403088,-90.993548);
+			addMarker('Broadmoor',30.498505,-91.13724);
+			addMarker('Sherwood Forest',30.444109,-91.080589);
+			addMarker('Forest Heights',30.448488,-91.052988);
+			addMarker('Nicholson',30.507316,-91.083715);
+			addMarker('Fairwood',30.336474,-91.080306);
+			addMarker('Jefferson',30.440895,-91.040876);
+			addMarker('Kenilworth',30.367657,-90.972005);
+			addMarker('Valley Park',30.382084,-91.124889);
+			addMarker('Baker',30.424905,-91.144);
+			addMarker('City Park',30.562163,-91.173465);
+			addMarker('Southside',30.431848,-91.159814);
+			addMarker('Mid City',30.417147,-91.156175);
+			addMarker('Mayfair',30.441905,-91.151406);
+			addMarker('Westminster',30.378951,-91.107942);
+			addMarker('South Campus',30.404099,-91.093939);
+			addMarker('Highland-Perkins',30.369941,-91.205788);
+			addMarker('Woodstone',30.36798,-91.079832);
+			addMarker('Woodchase',30.389674,-91.140661);
+			addMarker('LSU',30.408414,-91.142587);
+			addMarker('Old South Baton Rouge',30.412863,-91.179362);
+			addMarker('Bocage',30.43263,-91.182206);
+			addMarker('Drusilla',30.425257,-90.991308);
+			addMarker('Stevendale',30.418836,-91.085024);
+			addMarker('North Sherwood Forest',30.462355,-91.012507);
+			addMarker('Cortana',30.465548,-91.052583);
+			addMarker('Goodwood Homesites',30.46255,-91.088394);
+			addMarker('Downtown East',30.461432,-91.109191);
+			addMarker('Downtown',30.449375,-91.173323);
+			addMarker('Fairfields',30.460138,-91.180084);
+			addMarker('East Fairfields',30.461658,-91.161527);
+			addMarker('North Baton Rouge',30.460868,-91.133739);
+			addMarker('Southern University',30.476841,-91.133378);
+			addMarker('Legion Village',30.516352,-91.193176);
+			addMarker('Victoria Farms',30.504162,-91.160996);
+			addMarker('Park Forest-Oakcrest',30.489707,-91.109185);
+			addMarker('Monticello',30.482481,-91.085413);
+			addMarker('South Burbank',30.489175,-91.046224);
 
+	  }
+	};
+	x.send(null);
+    </script>
+    <script>
+      function initMap(a,b,c) {
+	var myLatLng = {lat: Number(b), lng: Number(c)};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
-          center: myLatLng
+          center: {lat: 30.4583, lng: -91.1403}
+
         });
 
         var marker = new google.maps.Marker({
-          position: myLatLng,
+	  position: myLatLng,
           map: map,
-          title: 'Gardere'
+          title: String(a)
         });
       }
+	function addMarker(a, b, c) {
+	  var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: {lat: 30.4583, lng: -91.1403}
+
+        });
+		var myLatLng = {lat: Number(b), lng: Number(c)};
+	        marker = new google.maps.Marker({
+			            position: myLatLng,
+				    map: map,
+				    title: String(a)
+		});
+	}
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLWqnG7Bjy8HGLDXL92w32fF9Dka-qb_0&callback=initMap">
