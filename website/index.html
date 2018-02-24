@@ -3,14 +3,12 @@
 	<head>
   		<title>Primeaux Property</title>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<script type="text/javascript" src="Points.js"></script>
-		<script type="text/javascript" src="init.js"></script>
-        <script type="text/javascript" src="CrimeDataAgggragate.js"></script>
   </head>
-	</head>
 	<body>
 		<input id="input" type="text" name="search" placeholder="Search An Address">
-    	<div id="map"></div>
+    	<div id="map" onclick="javascript:myLinkButtonClick();"></div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="ajaxcalls.js"></script>
     	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLWqnG7Bjy8HGLDXL92w32fF9Dka-qb_0&libraries=places&callback=initAutocomplete"></script>
 
     	<div class="box" id="details">
@@ -18,12 +16,28 @@
             <p id="school"> </p>
     	</div>
 
-    	<div class="box" id="legend">
-    		<h1><u> Legend </u></h1>
-    		<h2> Hospitals </h2>
-    	</div>
+        <div class="box" id="legend">
+            <h1><u> Legend </u></h1>
+            <div style="display:inline-block;">
+                <img src="pics/school.png" width="50" height="50" class="left">
+                <h3 class="right"> Local Schools </h3>
+            </div> 
+            <div style="display: inline-block;">
+                <img src="pics/crime.png" width="50" height="50" class="left">
+                <h3 class="right"> Crime Reports </h3>
+            </div> 
+        </div>
 
     	<div id="zillow"></div>
 
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
   </body>
+  <head>
+          <title>Primeaux Property</title>
+      <link rel="stylesheet" type="text/css" href="css/main.css">
+      <script type="text/javascript" src="Points.js"></script>
+      <script type="text/javascript" src="CrimeDataAgggragate.js"></script>
+      <script type="text/javascript" src="init.js"></script>
+  </head>
 </html>

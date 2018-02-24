@@ -43,11 +43,20 @@ body{
 }
 
 #zillow{
+  min-height: 2vw;
   background-image: url("../pics/zillowlogo.gif");
+  float:right;
+  position: fixed;
+  bottom: 10px;
 }
 
-.legend_button{
-
+.left {
+  float: left;
+  width: 30%;
+  height: auto;
+  overflow: hidden;
 }
 
-
+.right {
+  overflow: hidden;
+}
