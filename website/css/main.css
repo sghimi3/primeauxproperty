@@ -43,11 +43,19 @@ body{
 }
 
 #zillow{
+  min-height: 2vw;
   background-image: url("../pics/zillowlogo.gif");
+  float:right;
+  position: fixed;
+  bottom: 10px;
 }
 
-.legend_button{
-
+#school_img{	
+  background-image: url("../pics/school.png");
+  padding: 1%;
 }
 
-
+#crime_img{
+	background-image: url("../pics/crime.png");
+	padding: 1%;
+}
