@@ -139,12 +139,12 @@ function codeAddress(Address, geocoder, map) {
     });
   }
 
-  google.maps.event.addListener(map, 'click', function( event ){
+  /*google.maps.event.addListener(map, 'click', function( event ){
     lat = event.latLng.lat();
     lng = event.latLng.lng();
     alert( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng()); 
 
     document.getElementById("details").innerHTML("HI");
-  });
+  });*/
 }
 

@@ -5,7 +5,7 @@ var call1 = $.ajax({
     url: "https://data.brla.gov/resource/5rji-ddnu.json",
     type: "GET",
     data: {
-      "$limit" : 1000,
+      "$limit" : 500,
       "$$app_token" : "OBimKBKVR5rBKKLHnMg5ENdx2"
     }
 }).done(function(data) {
